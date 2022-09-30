@@ -1,16 +1,8 @@
-import { Client } from "discord.js";
+import bot from "./bot";
+import ping from "./command/commands/ping";
 
-(async () => {
-    const client = new Client({
-        intents: [
-            "Guilds",
-            "DirectMessages"
-        ],
-    });
-
-    await client.login(process.env.BOT_TOKEN);
-
-    client.on("ready", () => {
-        console.log("Ready!");
-    });
-})();
+bot({
+    commands: [
+        ping
+    ]
+});
