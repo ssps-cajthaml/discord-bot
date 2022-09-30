@@ -1,0 +1,33 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "Discord bot for my students at SSPŠaG.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "start": "node -r dotenv/config ./build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssps-cajthaml/discord-bot.git"
+  },
+  "keywords": [
+    "discord.js",
+    "bot",
+    "typescript"
+  ],
+  "author": "Matěj Cajthaml & others",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ssps-cajthaml/discord-bot/issues"
+  },
+  "homepage": "https://github.com/ssps-cajthaml/discord-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.5.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
