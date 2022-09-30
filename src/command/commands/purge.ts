@@ -13,7 +13,8 @@ export default {
             .setMaxValue(100)
         ),
 
-    
+    guildOnly: true,
+    permissions: ["MANAGE_MESSAGES"],
 
     call: async (interaction) => {
         const count = interaction.options.get("count", true).value as number;
