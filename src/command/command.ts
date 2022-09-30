@@ -1,10 +1,13 @@
-import { CommandInteraction, SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
+import { CommandInteraction, PermissionFlags, PermissionResolvable, SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
 
 export default interface Command {
     /**
      * The build data for the command.
      */
     builder: SlashCommandBuilder | SlashCommandSubcommandBuilder;
+
+    guildOnly?: boolean;
+    requiredPermissions?: PermissionResolvable[];
     
     /**
      * Gets called when the command is executed.
