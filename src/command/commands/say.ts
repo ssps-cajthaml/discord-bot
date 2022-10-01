@@ -4,10 +4,10 @@ import Command from "../command"
 export default {
     builder: new SlashCommandBuilder()
         .setName("say")
-        .setDescription("Bot řekne zprávu za Vás")
+        .setDescription("Bot řekne zprávu za Vás.")
         .addStringOption(option => option
             .setName("message")
-            .setDescription("Text, který chcete sdělit")
+            .setDescription("Text, který chcete sdělit.")
             .setRequired(true)
             .setMinLength(5)
             .setMaxLength(3500)
