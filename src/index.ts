@@ -1,12 +1,14 @@
 import bot from "./bot";
 import ping from "./command/commands/ping";
 import purge from "./command/commands/purge";
+import bonk from "./command/commands/bonk";
 import { voice } from "./module/modules/voice";
 
 bot({
     commands: [
         ping,
-        purge
+        purge,
+        bonk
     ],
     modules: [
         voice
