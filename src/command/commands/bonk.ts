@@ -4,7 +4,7 @@ import Command from "../command"
 export default {
     builder: new SlashCommandBuilder()
         .setName("bonk")
-        .setDescription("Spustí hlasování o dočasném timeout na uživatele.")
+        .setDescription("Spustí hlasování o dočasném timeoutu na uživatele.")
         .addUserOption(option => option
             .setName("target")
             .setDescription("Osoba, která dostane bonk.")
@@ -15,51 +15,69 @@ export default {
         if (!interaction.guild) return;
         if (!interaction.channel) return;
 
+        const requiredVotes = 3;
         const target = interaction.options.get("target", true).user;
         if (!target) return;
         if (target.id === null) return;
 
-        interaction.reply({
-            content: `Hlasování o bonku pro ${target} bylo spuštěno.`,
+        await interaction.reply({
+            embeds: [
+                {
+                    title: "🏏 | Bonk",
+                    description: `Hlasování o bonku pro ${target} bylo spuštěno.`,
+                    color: 0xffa40e,
+                }
+            ],
             ephemeral: true
         })
         let message = await interaction.channel.send({
-            content: `Chceš bonkout ${target.username}?`,
+            embeds: [
+                {
+                    title: "🏏 | Bonk",
+                    description: `Chceš bonkout ${target.username}?`,
+                    fields: [
+                        {
+                            name: "Co dělá bonk?",
+                            value: `Bonk na 5 sekund dá timeout danému uživateli. Je potřeba aby odhlasovalo nejméně 5 lidí.`,
+                            inline: true
+                        },
+                    ],
+                    color: 0xffa40e,
+
+                }
+            ],
         });
 
         const filter = (reaction: any, user: any) => {
-            return reaction.emoji.name === '👍' && user.id === message.author.id;
+            return reaction.emoji.name === '👍' && !user.bot;
         };
 
-        message.react('👍');
+        await message.react('👍');
 
         const collector = message.createReactionCollector({ filter, time: 60000 });
 
         collector.on('collect', (reaction: any, user: any) => {
             console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
-            if(message.reactions.cache.get('👍') === undefined) return;
+            if(reaction.count >= requiredVotes) {
+                // @ts-ignore
+                interaction.channel.send({
+                    embeds: [
+                        {
+                            title: "🏏 | Bonk'd",
+                            description: `${target.username} dostal bonked.`,
+                            color: 0xffa40e,
+                        }
+                    ],
+                });
 
-            // @ts-ignore
-            if(message.reactions.cache.get('👍').count === 2) {
-                message.channel.send(`${target} dostal bonk!`);
+                if(!interaction.guild) return;
+                interaction.guild.members.fetch(target.id).then(member => {
+                    member.timeout(5 * 1000)
+                });
+
                 collector.stop();
-            };
+            }
         });
-
-        collector.on('end', collected => {
-            console.log(`Collected ${collected.size} items`);
-        });
-        // interaction.guild.members.fetch(target.id).then(member => {
-        //     // member.timeout(5 * 1000).catch(() => {
-        //     //     console.log("cant bonk")
-        //     //     interaction.reply({
-        //     //         content: "Nepodařilo se nastavit timeout.",
-        //     //         ephemeral: true
-        //     //     });
-        //     //     interacted = true;
-        //     // });
-        //
-        // });
     }
 
 } as Command
