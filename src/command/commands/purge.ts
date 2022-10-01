@@ -14,7 +14,7 @@ export default {
         ),
 
     guildOnly: true,
-    permissions: ["MANAGE_MESSAGES"],
+    requiredPermissions: ["ManageMessages"],
 
     call: async (interaction) => {
         const count = interaction.options.get("count", true).value as number;
