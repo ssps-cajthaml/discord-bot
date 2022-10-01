@@ -38,7 +38,7 @@ export default {
                     fields: [
                         {
                             name: "Co dělá bonk?",
-                            value: `Bonk na 5 sekund dá timeout danému uživateli. Je potřeba aby odhlasovalo nejméně 5 lidí.`,
+                            value: `Bonk na 5 sekund dá timeout danému uživateli. Je potřeba aby odhlasovali nejméně 3 lidé.`,
                             inline: true
                         },
                     ],
