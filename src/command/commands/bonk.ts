@@ -1,4 +1,4 @@
-import {MessageReaction, SlashCommandBuilder, User} from "discord.js"
+import { MessageReaction, SlashCommandBuilder, User } from "discord.js"
 import Command from "../command"
 
 export default {
@@ -10,7 +10,9 @@ export default {
             .setDescription("Osoba, která dostane bonk.")
             .setRequired(true)
         ),
+    
     requiredPermissions: ["SendMessages"],
+
     call: async (interaction) => {
         if (!interaction.guild) return;
         if (!interaction.channel) return;
@@ -20,16 +22,8 @@ export default {
         if (!target) return;
         if (target.id === null) return;
 
-        await interaction.reply({
-            embeds: [
-                {
-                    title: "🏏 | Bonk",
-                    description: `Hlasování o bonku pro ${target} bylo spuštěno.`,
-                    color: 0xffa40e,
-                }
-            ],
-            ephemeral: true
-        })
+        await interaction.reply("Anketa o bonku byla vytvořena.");
+
         let message = await interaction.channel.send({
             embeds: [
                 {
@@ -58,8 +52,8 @@ export default {
 
         collector.on('collect', (reaction: MessageReaction, user: User) => {
             console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
-            if(reaction.count >= requiredVotes) {
-                if(!interaction.channel) return;
+            if (reaction.count >= requiredVotes) {
+                if (!interaction.channel) return;
 
                 interaction.channel.send({
                     embeds: [
@@ -71,7 +65,7 @@ export default {
                     ],
                 });
 
-                if(!interaction.guild) return;
+                if (!interaction.guild) return;
                 interaction.guild.members.fetch(target.id).then(member => {
                     member.timeout(5 * 1000)
                 });
