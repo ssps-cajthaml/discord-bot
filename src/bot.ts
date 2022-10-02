@@ -16,7 +16,8 @@ export default async (settings: BotSettings) => {
             "GuildMessages",
             "MessageContent",
             "DirectMessages",
-            "GuildVoiceStates"
+            "GuildVoiceStates",
+            "GuildMessageReactions"
         ],
     });
 
