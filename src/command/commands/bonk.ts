@@ -1,4 +1,4 @@
-import {SlashCommandBuilder} from "discord.js"
+import {MessageReaction, SlashCommandBuilder, User} from "discord.js"
 import Command from "../command"
 
 export default {
@@ -48,7 +48,7 @@ export default {
             ],
         });
 
-        const filter = (reaction: any, user: any) => {
+        const filter = (reaction: MessageReaction, user: User) => {
             return reaction.emoji.name === '👍' && !user.bot;
         };
 
@@ -59,7 +59,8 @@ export default {
         collector.on('collect', (reaction: any, user: any) => {
             console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
             if(reaction.count >= requiredVotes) {
-                // @ts-ignore
+                if(!interaction.channel) return;
+
                 interaction.channel.send({
                     embeds: [
                         {
