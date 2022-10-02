@@ -56,7 +56,7 @@ export default {
 
         const collector = message.createReactionCollector({ filter, time: 60000 });
 
-        collector.on('collect', (reaction: any, user: any) => {
+        collector.on('collect', (reaction: MessageReaction, user: User) => {
             console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
             if(reaction.count >= requiredVotes) {
                 if(!interaction.channel) return;
