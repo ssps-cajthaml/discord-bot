@@ -6,7 +6,7 @@ export default {
         .setName("ping")
         .setDescription("Zobrazí odezvu mezi botem a Discordem."),
 
-    
+
     call: async (interaction) => {
         await interaction.reply({
             embeds: [
@@ -26,7 +26,7 @@ export default {
                         }
                     ],
                     color: 0xffa40e,
-                    
+
                 }
             ],
             ephemeral: true

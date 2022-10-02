@@ -25,16 +25,7 @@ export default {
         //reaction index => reaction amount
         let votes: number[] = [];
 
-        await interaction.reply({
-            embeds: [
-                {
-                    title: "🗳️ | Anketa",
-                    description: `**Otázka:** ${interaction.options.get("question", true).value as string}`,
-                    color: 0xffa40e,
-                }
-            ],
-            ephemeral: true
-        });
+        await interaction.reply("Anketa byla vytvořena.");
 
         // Create voting message
         const message = await interaction.channel.send({
@@ -73,7 +64,6 @@ export default {
         const collector = message.createReactionCollector({ filter, time: duration * 1000, dispose: true });
 
         let reactionChangeHandle = (reaction: MessageReaction, user: User) => {
-
             if (reaction.emoji.name == "❌") {
                 if (user.id == interaction.user.id) {
                     collector.stop();
@@ -82,13 +72,10 @@ export default {
                 }
             }
 
-            votes[0] = message.reactions.cache.get("👍")?.count || 0;
-            votes[1] = message.reactions.cache.get("👎")?.count || 0;
+            votes[0] = Math.max(0, (message.reactions.cache.get("👍")?.count || 0) - 1);
+            votes[0] = Math.max(0, (message.reactions.cache.get("👎")?.count || 0) - 1);
 
-            votes[0] -= 1;
-            votes[1] -= 1;
-
-            //Update the message
+            if (!message) return;
 
             message.edit({
                 embeds: [

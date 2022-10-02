@@ -13,6 +13,8 @@ export default {
             .setMaxLength(3500)
         ),
 
+    requiredPermissions: ["ManageMessages"],
+
     call: async (interaction) => {
         const message = interaction.options.get("message", true).value as string;
 
