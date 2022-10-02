@@ -1,6 +1,5 @@
-import {CommandInteraction, SlashCommandBuilder} from "discord.js"
+import { SlashCommandBuilder } from "discord.js"
 import Command from "../command"
-import {BotSettings} from "../../bot";
 
 export default {
     builder: new SlashCommandBuilder()
@@ -14,7 +13,9 @@ export default {
             .setMaxLength(3500)
         ),
 
-    call: async (interaction: CommandInteraction, settings: BotSettings) => {
+    requiredPermissions: ["ManageMessages"],
+
+    call: async (interaction) => {
         const message = interaction.options.get("message", true).value as string;
 
         await interaction.reply(message);

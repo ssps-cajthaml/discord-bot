@@ -1,6 +1,5 @@
-import {CommandInteraction, MessageReaction, SlashCommandBuilder, User} from "discord.js"
+import { MessageReaction, SlashCommandBuilder, User } from "discord.js"
 import Command from "../command"
-import {BotSettings} from "../../bot";
 
 export default {
     builder: new SlashCommandBuilder()
@@ -11,10 +10,10 @@ export default {
             .setDescription("Osoba, která dostane bonk.")
             .setRequired(true)
         ),
-
+    
     requiredPermissions: ["SendMessages"],
 
-    call: async (interaction: CommandInteraction, settings: BotSettings) => {
+    call: async (interaction) => {
         if (!interaction.guild) return;
         if (!interaction.channel) return;
 
@@ -24,16 +23,6 @@ export default {
         if (target.id === null) return;
 
         await interaction.reply({
-            embeds: [
-                {
-                    title: "🏏 | Bonk",
-                    description: `Hlasování o bonku pro ${target} bylo spuštěno.`,
-                    color: 0xffa40e,
-                }
-            ],
-            ephemeral: true
-        })
-        let message = await interaction.channel.send({
             embeds: [
                 {
                     title: "🏏 | Bonk",
@@ -51,6 +40,8 @@ export default {
             ],
         });
 
+        const message = await interaction.fetchReply();
+
         const filter = (reaction: MessageReaction, user: User) => {
             return reaction.emoji.name === '👍' && !user.bot;
         };
@@ -61,20 +52,20 @@ export default {
 
         collector.on('collect', (reaction: MessageReaction, user: User) => {
             console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
-            if(reaction.count >= requiredVotes) {
-                if(!interaction.channel) return;
+            if (reaction.count >= requiredVotes) {
+                if (!interaction.channel) return;
 
-                interaction.channel.send({
+                interaction.editReply({
                     embeds: [
                         {
                             title: "🏏 | Bonk'd",
-                            description: `${target.username} dostal bonked.`,
+                            description: `Na základě hlasování dostal ${target.username} bonked.`,
                             color: 0xffa40e,
                         }
                     ],
                 });
 
-                if(!interaction.guild) return;
+                if (!interaction.guild) return;
                 interaction.guild.members.fetch(target.id).then(member => {
                     member.timeout(5 * 1000)
                 });

@@ -20,9 +20,9 @@ export default {
     call: async (interaction: CommandInteraction, settings: BotSettings) => {
         const count = interaction.options.get("count", true).value as number;
 
-        if(!interaction.guild) return;
-        if(!interaction.channel) return;
-        if(!interaction.channel.isTextBased()) return;
+        if (!interaction.guild) return;
+        if (!interaction.channel) return;
+        if (!interaction.channel.isTextBased()) return;
 
         const textBasedChannel = interaction.channel as TextChannel;
         const messages = await textBasedChannel.bulkDelete(count, true);
