@@ -1,13 +1,13 @@
-import { SlashCommandBuilder } from "discord.js"
+import {CommandInteraction, SlashCommandBuilder} from "discord.js"
 import Command from "../command"
+import {BotSettings} from "../../bot";
 
 export default {
     builder: new SlashCommandBuilder()
         .setName("ping")
         .setDescription("Zobrazí odezvu mezi botem a Discordem."),
 
-    
-    call: async (interaction) => {
+    call: async (interaction: CommandInteraction, settings: BotSettings) => {
         await interaction.reply({
             embeds: [
                 {
