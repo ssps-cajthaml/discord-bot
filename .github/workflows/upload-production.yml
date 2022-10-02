@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: "14"
       - name: Upload
-        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
           server: ${{ secrets.server_ftp_host }}
           username: ${{ secrets.server_ftp_user }}
@@ -25,8 +25,10 @@ jobs:
           exclude: '
             - "**/.git*"
             - "**/.git*/**"
+            - "/.git"
+            - "**/.github*"
+            - "**/.github*/**"
             - "**/node_modules/**"
-            - "files/**"
             - "*.env"
             '
       - name: Install & restart service
