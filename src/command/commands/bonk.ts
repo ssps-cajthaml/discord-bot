@@ -22,9 +22,7 @@ export default {
         if (!target) return;
         if (target.id === null) return;
 
-        await interaction.reply("Anketa o bonku byla vytvořena.");
-
-        let message = await interaction.channel.send({
+        await interaction.reply({
             embeds: [
                 {
                     title: "🏏 | Bonk",
@@ -42,6 +40,8 @@ export default {
             ],
         });
 
+        const message = await interaction.fetchReply();
+
         const filter = (reaction: MessageReaction, user: User) => {
             return reaction.emoji.name === '👍' && !user.bot;
         };
@@ -55,11 +55,11 @@ export default {
             if (reaction.count >= requiredVotes) {
                 if (!interaction.channel) return;
 
-                interaction.channel.send({
+                interaction.editReply({
                     embeds: [
                         {
                             title: "🏏 | Bonk'd",
-                            description: `${target.username} dostal bonked.`,
+                            description: `Na základě hlasování dostal ${target.username} bonked.`,
                             color: 0xffa40e,
                         }
                     ],
