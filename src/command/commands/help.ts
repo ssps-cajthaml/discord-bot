@@ -14,7 +14,7 @@ export default {
             return {
                 name: command.builder.name,
                 value: command.builder.description,
-                inline: false
+                inline: true
             };
         });
 
@@ -25,7 +25,9 @@ export default {
                     description: `Aktuálně dostupné commandy:`,
                     fields: fields,
                     color: 0xffa40e,
-                    
+                    footer: {
+                        text: "(Repo)[https://github.com/ssps-cajthaml/discord-bot]\nAutoři: Matěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
+                    }
                 }
             ],
             ephemeral: true
