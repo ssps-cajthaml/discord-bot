@@ -1,5 +1,19 @@
-import { MessageReaction, Partials, SlashCommandBuilder, User, ButtonBuilder, ButtonStyle, ActionRowBuilder, InteractionReplyOptions, CollectorFilter, Interaction, MessageComponentInteraction } from "discord.js"
+import {
+    MessageReaction,
+    Partials,
+    SlashCommandBuilder,
+    User,
+    ButtonBuilder,
+    ButtonStyle,
+    ActionRowBuilder,
+    InteractionReplyOptions,
+    CollectorFilter,
+    Interaction,
+    MessageComponentInteraction,
+    CommandInteraction
+} from "discord.js"
 import Command from "../command"
+import {BotSettings} from "../../bot";
 
 export default {
     //TODO: Add a way to add more reaction options
@@ -18,7 +32,7 @@ export default {
             .setRequired(true)
         ),
 
-    call: async (interaction) => {
+    call: async (interaction: CommandInteraction, settings: BotSettings) => {
         if (!interaction.guild) return;
         if (!interaction.channel) return;
 

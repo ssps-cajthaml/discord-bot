@@ -1,5 +1,6 @@
-import { SlashCommandBuilder, TextChannel } from "discord.js"
+import {CommandInteraction, SlashCommandBuilder, TextChannel} from "discord.js"
 import Command from "../command"
+import {BotSettings} from "../../bot";
 
 export default {
     builder: new SlashCommandBuilder()
@@ -16,7 +17,7 @@ export default {
     guildOnly: true,
     requiredPermissions: ["ManageMessages"],
 
-    call: async (interaction) => {
+    call: async (interaction: CommandInteraction, settings: BotSettings) => {
         const count = interaction.options.get("count", true).value as number;
 
         if (!interaction.guild) return;

@@ -40,7 +40,7 @@ export default (settings: BotSettings, interaction: Interaction) => {
         }
 
 
-        command.call(commandInteraction);
+        command.call(commandInteraction, settings);
     } else {
         
     }
