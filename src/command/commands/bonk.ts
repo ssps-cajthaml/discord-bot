@@ -18,7 +18,7 @@ export default {
         if (!interaction.guild) return;
         if (!interaction.channel) return;
 
-        const requiredVotes = 3;
+        const requiredVotes = 4;
         const target = interaction.options.get("target", true).user;
         if (!target) return;
         if (target.id === null) return;
