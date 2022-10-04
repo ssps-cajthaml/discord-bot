@@ -26,7 +26,7 @@ export default {
                     fields: fields,
                     color: 0xffa40e,
                     footer: {
-                        text: "(Repo)[https://github.com/ssps-cajthaml/discord-bot]\nAutoři: Matěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
+                        text: "Autoři: Matěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
                     }
                 }
             ],
