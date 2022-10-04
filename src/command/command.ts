@@ -7,7 +7,6 @@ export default interface Command {
      */
     builder: SlashCommandBuilder | SlashCommandSubcommandBuilder;
 
-    settings: BotSettings;
     guildOnly?: boolean;
     requiredPermissions?: PermissionResolvable[];
     
