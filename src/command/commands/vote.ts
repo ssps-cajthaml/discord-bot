@@ -75,8 +75,6 @@ export default {
             votes[0] = Math.max(0, (message.reactions.cache.get("👍")?.count || 0) - 1);
             votes[1] = Math.max(0, (message.reactions.cache.get("👎")?.count || 0) - 1);
 
-            if (!message) return;
-
             message.edit({
                 embeds: [
                     {
