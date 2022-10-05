@@ -53,7 +53,7 @@ export default {
 
         collector.on('collect', (reaction: MessageReaction, user: User) => {
             console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
-            if (reaction.count >= requiredVotes - 1) {
+            if (reaction.count >= requiredVotes) {
                 if (!interaction.channel) return;
 
                 interaction.editReply({
