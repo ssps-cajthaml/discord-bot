@@ -53,7 +53,7 @@ export default {
 
         collector.on('collect', (reaction: MessageReaction, user: User) => {
             console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
-            if (reaction.count >= requiredVotes) {
+            if (reaction.count >= requiredVotes - 1) {
                 if (!interaction.channel) return;
 
                 interaction.editReply({
@@ -68,7 +68,7 @@ export default {
 
                 if (!interaction.guild) return;
                 interaction.guild.members.fetch(target.id).then(member => {
-                    member.timeout(5 * 1000)
+                    member.timeout(15 * 1000)
                 });
 
                 collector.stop();
