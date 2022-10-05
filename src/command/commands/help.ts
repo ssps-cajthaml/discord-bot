@@ -21,12 +21,12 @@ export default {
         await interaction.reply({
             embeds: [
                 {
-                    title: "🏓 | Help",
-                    description: `Aktuálně dostupné commandy:`,
+                    title: "🏓 | Nápověda",
+                    description: `Aktuálně dostupné příkazy:`,
                     fields: fields,
                     color: 0xffa40e,
                     footer: {
-                        text: "Autoři: Matěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
+                        text: "**Autoři**:\nMatěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
                     }
                 }
             ],
