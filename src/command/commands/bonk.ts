@@ -10,6 +10,12 @@ export default {
             .setName("target")
             .setDescription("Osoba, která dostane bonk.")
             .setRequired(true)
+        )
+        .addIntegerOption(option => option
+            .setName("duration")
+            .setDescription("Doba trvání bonku v sekundách.")
+            .setMinValue(15)
+            .setMaxValue(300)
         ),
     
     requiredPermissions: ["SendMessages"],
@@ -18,10 +24,27 @@ export default {
         if (!interaction.guild) return;
         if (!interaction.channel) return;
 
-        const requiredVotes = 4;
         const target = interaction.options.get("target", true).user;
         if (!target) return;
         if (target.id === null) return;
+
+        let duration = 15;
+        const durationOption = interaction.options.get("duration", false);
+        if (durationOption)
+            duration = durationOption.value as number;
+
+        const votesRequired = Math.ceil(duration / 15);
+
+        // if target has permission manage messages, he can't be bonked
+        const targetMember = await interaction.guild.members.fetch(target.id);
+
+        if (targetMember.permissions.has("ManageMessages")) {
+            await interaction.reply({
+                content: "Tento uživatel nemůže být bonked.",
+                ephemeral: true
+            });
+            return;
+        }
 
         await interaction.reply({
             embeds: [
@@ -31,12 +54,11 @@ export default {
                     fields: [
                         {
                             name: "Co dělá bonk?",
-                            value: `Bonk na 5 sekund dá timeout danému uživateli. Je potřeba aby odhlasovali nejméně 3 lidé.`,
+                            value: `Bonk na **${duration} sekund** dá timeout danému uživateli. Potřebných hlasů: **${votesRequired}**.`,
                             inline: true
                         },
                     ],
                     color: 0xffa40e,
-
                 }
             ],
         });
@@ -53,7 +75,7 @@ export default {
 
         collector.on('collect', (reaction: MessageReaction, user: User) => {
             console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
-            if (reaction.count >= requiredVotes) {
+            if ((reaction.count - 1) >= votesRequired) {
                 if (!interaction.channel) return;
 
                 interaction.editReply({
@@ -68,7 +90,13 @@ export default {
 
                 if (!interaction.guild) return;
                 interaction.guild.members.fetch(target.id).then(member => {
-                    member.timeout(15 * 1000)
+                    if(member.communicationDisabledUntil) {
+                        const timeLeft = Math.floor((member.communicationDisabledUntil.getTime() - Date.now()));
+
+                        member.timeout(timeLeft + (duration * 1000));
+                    } else {
+                        member.timeout(15 * 1000)
+                    }
                 });
 
                 collector.stop();
