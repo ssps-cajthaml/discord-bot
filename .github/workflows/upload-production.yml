@@ -22,15 +22,14 @@ jobs:
           username: ${{ secrets.server_ftp_user }}
           password: ${{ secrets.server_ftp_password }}
           local-dir: "./"
-          exclude: '
-            - **/.git*
-            - **/.git*/**
-            - /.git
-            - **/.github*
-            - **/.github*/**
-            - **/node_modules/**
-            - *.env
-            '
+          exclude:  |
+            **/.git*
+            **/.git*/**
+            /.git
+            **/.github*
+            **/.github*/**
+            **/node_modules/**
+            *.env
       - name: Install & restart service
         uses: appleboy/ssh-action@master
         with:
