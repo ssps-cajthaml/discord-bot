@@ -90,12 +90,12 @@ export default {
 
                 if (!interaction.guild) return;
                 interaction.guild.members.fetch(target.id).then(member => {
-                    if(member.communicationDisabledUntil) {
+                    if (member.communicationDisabledUntil) {
                         const timeLeft = Math.floor((member.communicationDisabledUntil.getTime() - Date.now()));
 
-                        member.timeout(timeLeft + (duration * 1000));
+                        member.timeout(timeLeft + (duration * 1000), "Bonked by chat vote.");
                     } else {
-                        member.timeout(15 * 1000)
+                        member.timeout(duration * 1000, "Bonked by chat vote.")
                     }
                 });
 
