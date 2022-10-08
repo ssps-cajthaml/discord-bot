@@ -28,12 +28,16 @@ export default {
         if (!target) return;
         if (target.id === null) return;
 
+        //TODO: add cooldown per user, so they can't just spam bonks and stack the timeouts to make someone totally unable to speak
+        //the cooldown should probably be as long as the issued bonk
+        //another option is to introduce cooldowns on the target
+
         let duration = 15;
         const durationOption = interaction.options.get("duration", false);
         if (durationOption)
             duration = durationOption.value as number;
 
-        const votesRequired = Math.ceil(duration / 15);
+        const votesRequired = Math.ceil(duration / 15) + 1;
 
         // if target has permission manage messages, he can't be bonked
         const targetMember = await interaction.guild.members.fetch(target.id);
@@ -90,12 +94,12 @@ export default {
 
                 if (!interaction.guild) return;
                 interaction.guild.members.fetch(target.id).then(member => {
-                    if(member.communicationDisabledUntil) {
+                    if (member.communicationDisabledUntil) {
                         const timeLeft = Math.floor((member.communicationDisabledUntil.getTime() - Date.now()));
 
-                        member.timeout(timeLeft + (duration * 1000));
+                        member.timeout(timeLeft + (duration * 1000), "Bonked by chat vote.");
                     } else {
-                        member.timeout(15 * 1000)
+                        member.timeout(duration * 1000, "Bonked by chat vote.")
                     }
                 });
 
