@@ -34,7 +34,7 @@ export default {
         targetImage = await targetImage.resize(50, 50);
 
         //Requests image to overlay
-        const image = await Jimp.read('./resources/meme/slap.jpg');
+        const image = await Jimp.read('./resources/slap.jpg');
 
         //Maually overlay OP and Target profile pictures on source image via coords
         await image.blit(opImage, 117, 112);
