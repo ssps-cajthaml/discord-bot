@@ -26,7 +26,7 @@ export default {
                     fields: fields,
                     color: 0xffa40e,
                     footer: {
-                        text: "**Autoři**:\nMatěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
+                        text: "Autoři:\nMatěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
                     }
                 }
             ],
