@@ -8,8 +8,6 @@ export default {
         .setDescription("Zobrazí všechny dostupné commandy."),
     
     call: async (interaction: CommandInteraction, settings: BotSettings) => {
-        console.log(settings.commands);
-
         let fields = settings.commands.map(command => {
             return {
                 name: command.builder.name,

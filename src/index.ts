@@ -5,6 +5,7 @@ import bonk from "./command/commands/bonk";
 import say from "./command/commands/say";
 import vote from "./command/commands/vote";
 import help from "./command/commands/help";
+import slap from "./command/commands/slap";
 
 import { voice } from "./module/modules/voice";
 
@@ -15,7 +16,8 @@ bot({
         bonk,
         say,
         vote,
-        help
+        help,
+        slap
     ],
     modules: [
         voice
