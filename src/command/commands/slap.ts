@@ -7,10 +7,10 @@ import fs from 'fs';
 export default {
     builder: new SlashCommandBuilder()
         .setName("slap")
-        .setDescription("Dá facku vybranému uživateli.")
+        .setDescription("Dá flákanec vybranému uživateli.")
         .addUserOption(option => option
             .setName("target")
-            .setDescription("Osoba, která dostane facku.")
+            .setDescription("Osoba, která dostane flákanec.")
             .setRequired(true)
         ),
 
@@ -50,7 +50,7 @@ export default {
             embeds: [
                 {
                     title: "😲 | Get slapped!",
-                    description: `Cože? Uživatel **` + op?.username + `** dal právě facku uživateli **` + target?.username + `**. To muselo bolet!`,
+                    description: `Cože? Uživatel **` + op?.username + `** dal právě flákanec uživateli **` + target?.username + `**. To muselo bolet!`,
                     image: {
                         url: 'attachment://generated' + time + '.png',
                     },
