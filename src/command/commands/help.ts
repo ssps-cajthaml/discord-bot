@@ -8,8 +8,6 @@ export default {
         .setDescription("Zobrazí všechny dostupné commandy."),
     
     call: async (interaction: CommandInteraction, settings: BotSettings) => {
-        console.log(settings.commands);
-
         let fields = settings.commands.map(command => {
             return {
                 name: command.builder.name,
@@ -26,7 +24,7 @@ export default {
                     fields: fields,
                     color: 0xffa40e,
                     footer: {
-                        text: "Autoři:\nMatěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
+                        text: "**Autoři**:\nMatěj Cajthaml, Denis Lenger, Matyáš Himmer, Sebastian Himmer",
                     }
                 }
             ],
