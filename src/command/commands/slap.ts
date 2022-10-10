@@ -19,6 +19,9 @@ export default {
         const target = interaction.options.get("target", true).user;
         const op = interaction.member?.user;
 
+        if (!(op instanceof User)) return;
+        if (!(target instanceof User)) return;
+
         //Gets time for later use
         const time = Date.now();
 
