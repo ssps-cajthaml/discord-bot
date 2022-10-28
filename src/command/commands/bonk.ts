@@ -1,4 +1,4 @@
-import {CommandInteraction, MessageReaction, SlashCommandBuilder, User} from "discord.js"
+import {CommandInteraction, MessageReaction, SlashCommandBuilder, User, Client} from "discord.js"
 import Command from "../command"
 import {BotSettings} from "../../bot";
 
@@ -20,7 +20,7 @@ export default {
     
     requiredPermissions: ["SendMessages"],
 
-    call: async (interaction: CommandInteraction, settings: BotSettings) => {
+    call: async (interaction: CommandInteraction, settings: BotSettings, client: Client) => {
         if (!interaction.guild) return;
         if (!interaction.channel) return;
 

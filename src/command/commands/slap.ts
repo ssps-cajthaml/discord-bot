@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder, User, AttachmentBuilder, GuildMember } from "discord.js"
+import { CommandInteraction, SlashCommandBuilder, User, AttachmentBuilder, GuildMember, Client} from "discord.js"
 import Command from "../command"
 import { BotSettings } from "../../bot";
 import Jimp from 'jimp';
@@ -15,7 +15,7 @@ export default {
         ),
 
 
-    call: async (interaction: CommandInteraction, settings: BotSettings) => {
+    call: async (interaction: CommandInteraction, settings: BotSettings, client: Client) => {
         //Added variables because of TS compilation error :)
         let opUser = interaction.member?.user;
         let opMember = interaction.member;

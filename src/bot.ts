@@ -57,7 +57,7 @@ export default async (settings: BotSettings) => {
     });
 
     client.on("interactionCreate", async (interaction) => {
-        handler(settings, interaction);
+        handler(settings, interaction, client);
     });
 
     client.on("voiceStateUpdate", async (...args) => {

@@ -1,4 +1,4 @@
-import {CommandInteraction, SlashCommandBuilder} from "discord.js"
+import {CommandInteraction, SlashCommandBuilder, Client} from "discord.js"
 import Command from "../command"
 import {BotSettings} from "../../bot";
 
@@ -8,7 +8,7 @@ export default {
         .setDescription("Zobrazí odezvu mezi botem a Discordem."),
 
 
-    call: async (interaction: CommandInteraction, settings: BotSettings) => {
+    call: async (interaction: CommandInteraction, settings: BotSettings, client: Client) => {
         await interaction.reply({
             embeds: [
                 {
