@@ -7,7 +7,7 @@ You can join the Discord server by visiting https://discord.cajthaml.eu/.
 ## To run the bot for the first time
 - clone/download the repository
 - install **Node.JS**
-- run these commands in the folder you have the project to install all the dependencies, copmile the bot and start it:
+- run these commands in the folder you have the project to install all the dependencies, compile the bot and start it:
     - `npm install`
     - `npm run build`
     - `npm run start`
