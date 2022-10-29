@@ -38,15 +38,13 @@ export default {
                 { name: "Invisible", value: "invisible" },
                 { name: "Do Not Disturb", value: "dnd" },
             )
-        ),
-    //todo: add translations to the command options
+        ),    
 
     call: async (interaction: CommandInteraction, settings: BotSettings, client: Client) => {
 
-        //shouldn't really happen, but TS screams at me violently if it's not here
         if (client.user == null) {
             console.log("Client.user is null, something probably went wrong.");
-            await interaction.reply({ content: "Nepodařilo se nastavit aktivitu. Prosím zkuste to později, nebo kontaktujte vývojáře.", ephemeral: true })
+            await interaction.reply({ content: "Nepodařilo se nastavit aktivitu. Prosím zkuste to později, nebo kontaktujte administrátora.", ephemeral: true })
             return;
         }
 
@@ -63,7 +61,7 @@ export default {
             if (err) throw err;
             let envLines = data.toString().split('\n');
 
-            envLines = envLines.filter(x => !x.includes("ACTIVITY")); //filter out all the lines about activity to delete (and esentially rewrite them)
+            envLines = envLines.filter(x => !x.startsWith("ACTIVITY_")); //filter out all the lines about activity to delete (and esentially rewrite them)
 
             envLines.push(`ACTIVITY_TYPE=${activityType}`);
             envLines.push(`ACTIVITY_STATUS=${activityStatus}`);
