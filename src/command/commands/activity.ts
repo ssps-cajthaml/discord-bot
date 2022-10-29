@@ -15,12 +15,12 @@ export default {
             .setRequired(true)
             .setDescription("Typ aktivity")
             .addChoices(
-                { name: "Playing", value: 0 },
-                { name: "Competing in", value: 5 },
+                { name: "Playing", value: 0, name_localizations: { cs: "Hraje" } },
+                { name: "Competing in", value: 5, name_localizations: { cs: "Soutěží v" }  },
                 // { name: "Custom", value: 4 }, //Custom status is not available for bots (yet? hopefully)
-                { name: "Listening to", value: 2 },
+                { name: "Listening to", value: 2, name_localizations: { cs: "Poslouchá" }  },
                 // { name: "Streaming", value: 1 }, //apparently doesn't work for bots either
-                { name: "Watching", value: 3 },
+                { name: "Watching", value: 3, name_localizations: { cs: "Sleduje" }  },
             )
         )
         .addStringOption(option => option
@@ -62,9 +62,9 @@ export default {
         fs.readFile(".env", (err, data) => {
             if (err) throw err;
             let envLines = data.toString().split('\n');
-            
+
             envLines = envLines.filter(x => !x.includes("ACTIVITY")); //filter out all the lines about activity to delete (and esentially rewrite them)
-            
+
             envLines.push(`ACTIVITY_TYPE=${activityType}`);
             envLines.push(`ACTIVITY_STATUS=${activityStatus}`);
             envLines.push(`ACTIVITY_TEXT='${activityText.replace("'", "\\'")}'`);
