@@ -1,7 +1,7 @@
-import { CommandInteraction, GuildMemberRoleManager, Interaction, InteractionType } from "discord.js";
+import { CommandInteraction, GuildMemberRoleManager, Interaction, InteractionType, Client } from "discord.js";
 import { BotSettings } from "../bot";
 
-export default (settings: BotSettings, interaction: Interaction) => {
+export default (settings: BotSettings, interaction: Interaction, client: Client) => {
  
     if(interaction.type === InteractionType.ApplicationCommand) {
         console.log(`Recieved command interaction for ${interaction.commandName}.`);
@@ -40,7 +40,7 @@ export default (settings: BotSettings, interaction: Interaction) => {
         }
 
 
-        command.call(commandInteraction, settings);
+        command.call(commandInteraction, settings, client);
     } else {
         
     }

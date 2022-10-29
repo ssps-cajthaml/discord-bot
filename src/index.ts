@@ -6,6 +6,7 @@ import say from "./command/commands/say";
 import vote from "./command/commands/vote";
 import help from "./command/commands/help";
 import slap from "./command/commands/slap";
+import activity from "./command/commands/activity";
 
 import { voice } from "./module/modules/voice";
 
@@ -17,7 +18,8 @@ bot({
         say,
         vote,
         help,
-        slap
+        slap,
+        activity
     ],
     modules: [
         voice

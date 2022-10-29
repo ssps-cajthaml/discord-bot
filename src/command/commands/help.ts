@@ -1,4 +1,4 @@
-import {CommandInteraction, SlashCommandBuilder} from "discord.js"
+import {CommandInteraction, SlashCommandBuilder, Client} from "discord.js"
 import Command from "../command"
 import {BotSettings} from "../../bot";
 
@@ -7,7 +7,7 @@ export default {
         .setName("help")
         .setDescription("Zobrazí všechny dostupné commandy."),
     
-    call: async (interaction: CommandInteraction, settings: BotSettings) => {
+    call: async (interaction: CommandInteraction, settings: BotSettings, client: Client) => {
         let fields = settings.commands.map(command => {
             return {
                 name: command.builder.name,

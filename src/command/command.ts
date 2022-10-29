@@ -1,4 +1,4 @@
-import { CommandInteraction, PermissionFlags, PermissionResolvable, SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
+import { CommandInteraction, PermissionFlags, PermissionResolvable, SlashCommandBuilder, SlashCommandSubcommandBuilder, Client } from "discord.js";
 import {BotSettings} from "../bot";
 
 export default interface Command {
@@ -14,5 +14,5 @@ export default interface Command {
      * Gets called when the command is executed.
      * @param interaction The interaction that triggered the command.
      */
-    call: (interaction: CommandInteraction, settings: BotSettings) => Promise<void>;
+    call: (interaction: CommandInteraction, settings: BotSettings, client: Client) => Promise<void>;
 }
