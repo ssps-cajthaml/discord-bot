@@ -1,6 +1,8 @@
 import { ActivityType, Client, CommandInteraction, DiscordjsError, PresenceStatusData, SlashCommandBuilder } from "discord.js"
 import Command from "../command"
 import { BotSettings } from "../../bot";
+import * as fs from "fs";
+
 
 export default {
     requiredPermissions: ["Administrator"],
@@ -37,10 +39,7 @@ export default {
                 { name: "Do Not Disturb", value: "dnd" },
             )
         ),
-
-    // PresenceData.status: online, idle, invisible, dnd
-    // ActivitiesOptions.type: Competing, Custom, Listening, Playing, Streaming, Watching
-
+    //todo: add translations to the command options
 
     call: async (interaction: CommandInteraction, settings: BotSettings, client: Client) => {
 
@@ -58,6 +57,20 @@ export default {
         client.user?.setPresence({ activities: [{ name: activityText, type: activityType }], status: activityStatus as PresenceStatusData });
 
         await interaction.reply({ content: "Aktivita byla úspěšně nastavena!", ephemeral: true });
+
+        //saving activity
+        fs.readFile(".env", (err, data) => {
+            if (err) throw err;
+            let envLines = data.toString().split('\n');
+            
+            envLines = envLines.filter(x => !x.includes("ACTIVITY")); //filter out all the lines about activity to delete (and esentially rewrite them)
+            
+            envLines.push(`ACTIVITY_TYPE=${activityType}`);
+            envLines.push(`ACTIVITY_STATUS=${activityStatus}`);
+            envLines.push(`ACTIVITY_TEXT='${activityText.replace("'", "\\'")}'`);
+
+            fs.writeFileSync(".env", envLines.join('\n'));
+        });
     }
 
 } as Command
