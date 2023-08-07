@@ -10,7 +10,6 @@ export class BotSettings {
 };
 
 export default async (settings: BotSettings) => {
-
     console.log("Bot is starting...");
 
     const client = new Client({
@@ -78,6 +77,18 @@ export default async (settings: BotSettings) => {
     client.on("voiceStateUpdate", async (...args) => {
         for (const module of settings.modules) {
             module.handle("voiceStateUpdate", args);
+        }
+    });
+
+    client.on("messageReactionAdd", async (...args) => {
+        for (const module of settings.modules) {
+            module.handle("messageReactionAdd", args);
+        }
+    });
+
+    client.on("messageReactionRemove", async (...args) => {
+        for (const module of settings.modules) {
+            module.handle("messageReactionRemove", args);
         }
     });
 };
