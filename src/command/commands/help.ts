@@ -5,7 +5,7 @@ import {BotSettings} from "../../bot";
 export default {
     builder: new SlashCommandBuilder()
         .setName("help")
-        .setDescription("Zobrazí všechny dostupné commandy."),
+        .setDescription("Zobrazí všechny dostupné příkazy."),
     
     call: async (interaction: CommandInteraction, settings: BotSettings, client: Client) => {
         let fields = settings.commands.map(command => {

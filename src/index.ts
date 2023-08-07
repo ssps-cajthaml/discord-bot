@@ -15,6 +15,7 @@ import verify from "./command/commands/verify";
 
 import { voice } from "./module/modules/voice";
 import { roleAssignment } from "./module/modules/roleAssignment";
+import { welcomeMessage } from "./module/modules/welcomeMessage";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ bot({
     ],
     modules: [
         voice,
-        roleAssignment
+        roleAssignment,
+        welcomeMessage
     ]
 });

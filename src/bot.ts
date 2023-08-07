@@ -91,4 +91,10 @@ export default async (settings: BotSettings) => {
             module.handle("messageReactionRemove", args);
         }
     });
+
+    client.on("guildMemberAdd", async (...args) => {
+        for (const module of settings.modules) {
+            module.handle("guildMemberAdd", args);
+        }
+    });
 };
