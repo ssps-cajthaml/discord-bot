@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc --watch",
-    "start": "node -r dotenv/config ./build/index.js"
+    "start": "node -r dotenv/config ./build/index.js",
+    "start:dev": "npx nodemon"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,8 @@
   "dependencies": {
     "discord.js": "^14.5.0",
     "dotenv": "^16.0.3",
-    "jimp": "^0.16.2"
+    "jimp": "^0.16.2",
+    "nodemon": "^3.0.1"
   },
   "devDependencies": {
     "typescript": "^4.8.4"

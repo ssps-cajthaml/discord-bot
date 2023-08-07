@@ -29,25 +29,25 @@ export default {
         const time = Date.now();
 
         //Gets OP and Target profile picture in png format (because jimp does not support webp)
-        const targetPFP = await (interaction.options.get("target", true).user?.displayAvatarURL() ?? "").replace("webp", "png");
-        const opPFP = await (opUser?.displayAvatarURL() ?? "").replace("webp", "png");
+        const targetPFP = (interaction.options.get("target", true).user?.displayAvatarURL() ?? "").replace("webp", "png");
+        const opPFP = (opUser?.displayAvatarURL() ?? "").replace("webp", "png");
 
         //Adds image to Jimp and resizes it to 50x50px
         let opImage = await Jimp.read(opPFP);
-        opImage = await opImage.resize(50, 50);
+        opImage = opImage.resize(50, 50);
 
         let targetImage = await Jimp.read(targetPFP);
-        targetImage = await targetImage.resize(50, 50);
+        targetImage = targetImage.resize(50, 50);
 
         //Requests image to overlay
         const image = await Jimp.read('./resources/slap.jpg');
 
         //Maually overlay OP and Target profile pictures on source image via coords
-        await image.blit(opImage, 117, 112);
-        await image.blit(targetImage, 206, 54);
+        image.blit(opImage, 117, 112);
+        image.blit(targetImage, 206, 54);
 
         //Writes image to temp file, uses time defined previously to differentiate simultaneously running instances
-        await image.writeAsync('temp/generated' + time + '.png');
+        await image.writeAsync('./temp/generated' + time + '.png');
 
         //Creates attachment ready to be sent to server
         const file = new AttachmentBuilder('./temp/generated' + time + '.png');

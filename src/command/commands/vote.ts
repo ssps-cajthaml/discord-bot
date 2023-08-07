@@ -1,15 +1,7 @@
 import {
     MessageReaction,
-    Partials,
     SlashCommandBuilder,
     User,
-    ButtonBuilder,
-    ButtonStyle,
-    ActionRowBuilder,
-    InteractionReplyOptions,
-    CollectorFilter,
-    Interaction,
-    MessageComponentInteraction,
     CommandInteraction,
     Client
 } from "discord.js"
