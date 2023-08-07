@@ -11,6 +11,7 @@ import help from "./command/commands/help";
 import slap from "./command/commands/slap";
 import activity from "./command/commands/activity";
 import roleAssignmentCommand from "./command/commands/roleAssignment";
+import verify from "./command/commands/verify";
 
 import { voice } from "./module/modules/voice";
 import { roleAssignment } from "./module/modules/roleAssignment";
@@ -27,7 +28,8 @@ bot({
         help,
         slap,
         activity,
-        roleAssignmentCommand
+        roleAssignmentCommand,
+        verify
     ],
     modules: [
         voice,
