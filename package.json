@@ -25,12 +25,12 @@
   },
   "homepage": "https://github.com/ssps-cajthaml/discord-bot#readme",
   "dependencies": {
-    "discord.js": "^14.12.1",
+    "discord.js": "^14.12.0",
     "dotenv": "^16.0.3",
     "jimp": "^0.16.2",
     "nodemon": "^3.0.1"
   },
   "devDependencies": {
-    "typescript": "^4.8.4"
+    "typescript": "^5.1.6"
   }
 }
