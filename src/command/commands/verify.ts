@@ -37,7 +37,7 @@ export default {
                             label: "Kód z portálu",
                             customId: "code",
                             style: TextInputStyle.Paragraph,
-                            placeholder: "Kód naleznete na portálu ssps.cajthaml.eu v sekci Nastavení po přihlášení.",
+                            placeholder: "Kód naleznete na portálu ssps.cajthaml.eu v sekci Nastavení, které se objeví po přihlášení.",
                         },
                     ],
                 },
@@ -86,8 +86,8 @@ export default {
         if(member.manageable)
             member.setNickname(discordName);
 
-        const subjectMappings = (process.env.VERIFY_SUBJECT_MAPPINGS ?? "").toLocaleLowerCase().split(";").map(mapping => mapping.split(":"));
-        const groupMappings = (process.env.VERIFY_GROUP_MAPPINGS ?? "").toLocaleLowerCase().split(";").map(mapping => mapping.split(":"));
+        const subjectMappings = (process.env.VERIFY_SUBJECT_MAPPINGS ?? "").split(";").map(mapping => mapping.split(":"));
+        const groupMappings = (process.env.VERIFY_GROUP_MAPPINGS ?? "").split(";").map(mapping => mapping.split(":"));
 
         const subjectRoles = [];
 
@@ -129,6 +129,8 @@ export default {
         } else {
             interaction.followUp({ content: "Žádné role k přidání. Úspešně ověřeno.", ephemeral: true});
         }
+
+        console.log(`User ${name} verified, added roles ${rolesToAdd.map(role => role.name).join(", ")}.`);
     }
 
 } as Command
