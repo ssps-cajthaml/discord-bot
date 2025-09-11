@@ -44,19 +44,26 @@ export default {
             ],
         });
 
-        const result = await interaction.awaitModalSubmit({
-            time: 60000
-        });
+        let result;
+        try {
+            result = await interaction.awaitModalSubmit({
+                time: 60000
+            });
+        } catch (error) {
+            console.log("Modal submit timeout or error:", error);
+            return;
+        }
 
-        result.deferUpdate();
+        await result.deferUpdate();
 
         const code = result.fields.fields.find(field => field.customId === "code")?.value;
 
         if(!code) {
-            interaction.reply({ content: "Nebyl zadán žádný kód.", ephemeral: true });
+            await result.followUp({ content: "Nebyl zadán žádný kód.", ephemeral: true });
+            return;
         }
 
-        interaction.followUp({ content: "Ověřování...", ephemeral: true});
+        await result.followUp({ content: "Ověřování...", ephemeral: true});
 
         const response = await fetch(`${portalApiUrl}/verify/${code}`, {
             method: "GET",
@@ -68,11 +75,11 @@ export default {
         const data = await response.json();
 
         if(data.meta.status !== 'success') {
-            interaction.followUp({ content: "Nepodařilo se ověřit uživatele. Zkontrolujte prosím zadaný kód.", ephemeral: true});
+            await result.followUp({ content: "Nepodařilo se ověřit uživatele. Zkontrolujte prosím zadaný kód.", ephemeral: true});
             return;
         }
 
-        interaction.followUp({ content: "Nastavování jména...", ephemeral: true});
+        await result.followUp({ content: "Nastavování jména...", ephemeral: true});
 
         const name = data.data.user.name;
         const subjects = data.data.subjects;
@@ -82,9 +89,8 @@ export default {
         
         const discordName = name.split(" ").reverse().join(" ");
 
-        // has permissions to change nickname?
         if(member.manageable)
-            member.setNickname(discordName);
+            await member.setNickname(discordName);
 
         const subjectMappings = (process.env.VERIFY_SUBJECT_MAPPINGS ?? "").split(";").map(mapping => mapping.split(":"));
         const groupMappings = (process.env.VERIFY_GROUP_MAPPINGS ?? "").split(";").map(mapping => mapping.split(":"));
@@ -124,10 +130,10 @@ export default {
         const rolesToAdd = [...subjectRoles, ...groupRoles].filter(role => !member.roles.cache.has(role.id));
 
         if(rolesToAdd.length > 0) {
-            interaction.followUp({ content: "Role přidány. Úspešně ověřeno.", ephemeral: true});
-            member.roles.add(rolesToAdd);
+            await result.followUp({ content: "Role přidány. Úspešně ověřeno.", ephemeral: true});
+            await member.roles.add(rolesToAdd);
         } else {
-            interaction.followUp({ content: "Žádné role k přidání. Úspešně ověřeno.", ephemeral: true});
+            await result.followUp({ content: "Žádné role k přidání. Úspešně ověřeno.", ephemeral: true});
         }
 
         console.log(`User ${name} verified, added roles ${rolesToAdd.map(role => role.name).join(", ")}.`);
