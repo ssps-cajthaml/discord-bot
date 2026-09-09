@@ -1,5 +1,7 @@
-FROM node:16-alpine
+FROM node:22
 WORKDIR /app
+
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 
 COPY ./resources ./resources
 COPY ./src ./src
