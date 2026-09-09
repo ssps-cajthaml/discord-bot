@@ -2,7 +2,7 @@
 
 This repository contains source code of the Discord bot used in an official study and support server for my students. It's writen in TypeScript and is fully customizable. Lots of commands help moderators manage the server.
 
-You can join the Discord server by visiting https://discord.cajthaml.eu/.
+You can join the Discord server by visiting https://discord.ssps.cajthaml.eu/.
 
 ## To run the bot for the first time
 - clone/download the repository
